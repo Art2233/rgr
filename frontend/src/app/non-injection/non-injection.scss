@@ -1,0 +1,11 @@
+@use '../../styles/global-variables' as *;
+
+.link {
+    color: $mainBlue;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+        color: darken($mainBlue, 10%);
+    }
+}

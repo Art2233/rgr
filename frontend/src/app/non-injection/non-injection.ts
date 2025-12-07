@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-non-injection',
@@ -13,7 +14,8 @@ import { FormsModule } from '@angular/forms';
 export class NonInjection {
 
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private router: Router
     ) {}
 
     sql = 'SELECT * FROM city;';
@@ -25,5 +27,9 @@ export class NonInjection {
                 this.responseText = res;
             },
         });
+    }
+
+    goToMainPage() {
+        this.router.navigate(['']);
     }
 }
