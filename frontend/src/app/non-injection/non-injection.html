@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+
+    <div class="col-7">
+        <div class="alert alert-dark" role="alert">
+            <b>Сторінка без захисту від SQL Injection</b>
+            <ul>
+                <li>На цій сторінці можна викликати SQL запити прямо з браузера</li>
+                <li>Результати можна перевірити в базі даних</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-7 mx-auto">
+        <div class="form-floating">
+            <textarea
+                class="form-control"
+                placeholder="Sql"
+                id="sqlTextarea"
+                style="height: 200px"
+                [(ngModel)]="sql"
+            ></textarea>
+            <label for="sqlTextarea">Sql</label>
+        </div>
+        <button
+            type="button"
+            class="btn btn-primary mt-3 d-block"
+            (click)="request()"
+        >
+            Відправити
+        </button>
+    </div>
+
+    <div class="col-7 mt-3 mx-auto">
+        @if(!!responseText) {
+            <div class="alert alert-success" role="alert">
+                {{ responseText }}. Перевірте базу даних.
+            </div>
+        }
+    </div>
+</div>

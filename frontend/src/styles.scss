@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+/* Bootstrap */
+@import url('bootstrap/dist/css/bootstrap.min.css');
+
+/* Font Awesome 4.7.0 */
+@import url('font-awesome/css/font-awesome.min.css');
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.alert {
+  max-width: 100%;
+  overflow-x: auto;
+}
