@@ -6,9 +6,18 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DBConnection {
-    private final static String url = "jdbc:postgresql://db:5432/lab3";
-    private final static String username = "postgres";
-    private final static String password = "postgres";
+    private static final String url = System.getenv().getOrDefault(
+        "SPRING_DATASOURCE_URL",
+        "jdbc:postgresql://localhost:5432/lab3"
+    );
+    private static final String username = System.getenv().getOrDefault(
+            "SPRING_DATASOURCE_USERNAME",
+            "postgres"
+    );
+    private static final String password = System.getenv().getOrDefault(
+            "SPRING_DATASOURCE_PASSWORD",
+            "postgres"
+    );
 
     public static Connection getConnection() throws SQLException {
         Properties prop = new Properties();
