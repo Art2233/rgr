@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build:deploy": "ng build && powershell -NoLogo -NoProfile -Command \"& { Remove-Item ..\\backend\\src\\main\\resources\\static\\* -Recurse -Force -ErrorAction SilentlyContinue; Copy-Item -Recurse -Force .\\dist\\frontend\\browser\\* ..\\backend\\src\\main\\resources\\static\\ }\""
   },
   "prettier": {
     "printWidth": 100,
