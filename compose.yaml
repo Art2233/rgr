@@ -1,7 +1,7 @@
 services:
   app:
     build: .
-    container_name: lab3-app
+    container_name: rgr-app
     depends_on:
       db:
         condition: service_healthy
@@ -14,7 +14,7 @@ services:
 
   db:
     image: postgres:16
-    container_name: lab3-postgres
+    container_name: rgr-postgres
     environment:
       POSTGRES_DB: lab3
       POSTGRES_USER: postgres
@@ -29,7 +29,7 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: pgadmin4-new
+    container_name: rgr-pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
       PGADMIN_DEFAULT_PASSWORD: admin
