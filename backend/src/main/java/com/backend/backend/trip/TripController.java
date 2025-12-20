@@ -1,5 +1,8 @@
 package com.backend.backend.trip;
 
+import jakarta.servlet.http.HttpSession;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -7,7 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/trip")
-@CrossOrigin(origins = "http://localhost:4200") //for development
+@CrossOrigin(
+        origins = "http://localhost:4200",
+        allowCredentials = "true"
+) //for development
 public class TripController {
     private TripService tripService;
 
@@ -16,13 +22,21 @@ public class TripController {
     }
 
     @GetMapping("/get-list")
-    public List<Trip> getTripList() throws SQLException {
+    public Object getTripList(HttpSession session) throws Exception {
+        if (session.getAttribute("userId") == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
         return tripService.getTrips();
     }
 
     @PostMapping("/new")
-    public Trip newTrip(@RequestBody Trip trip) throws SQLException {
+    public Object newTrip(@RequestBody Trip trip, HttpSession session) throws SQLException {
         try {
+            if("USER".equals(session.getAttribute("role"))) {
+                return ResponseEntity
+                        .status(HttpStatus.FORBIDDEN)
+                        .build();
+            }
             return  tripService.createNewTrip(trip);
         } catch (Exception e) {
             throw new SQLException(e);
@@ -30,8 +44,13 @@ public class TripController {
     }
 
     @PutMapping("/update/{id}")
-    public Trip updateTrip(@RequestBody Trip trip, @PathVariable int id) throws SQLException {
+    public Object updateTrip(@RequestBody Trip trip, @PathVariable int id, HttpSession session) throws SQLException {
         try {
+            if("USER".equals(session.getAttribute("role"))) {
+                return ResponseEntity
+                        .status(HttpStatus.FORBIDDEN)
+                        .build();
+            }
             return tripService.updateTrip(id, trip);
         }  catch (Exception e) {
             throw new SQLException(e);
@@ -39,11 +58,18 @@ public class TripController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteTrip(@PathVariable String id) throws SQLException {
+    public Object deleteTrip(@PathVariable String id, HttpSession session) throws SQLException {
         try {
+            if("USER".equals(session.getAttribute("role"))) {
+                return ResponseEntity
+                        .status(HttpStatus.FORBIDDEN)
+                        .build();
+            }
             tripService.deleteTrip(Integer.parseInt(id));
         } catch (Exception e) {
             throw new SQLException(e);
         }
+
+        return null;
     }
 }

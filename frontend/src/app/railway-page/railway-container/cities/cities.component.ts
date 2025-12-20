@@ -17,6 +17,7 @@ export class CitiesComponent {
     @Input() isNewCityMode: boolean = false;
     @Input() isEditCityMode: boolean = false;
     @Input() isLoading: boolean = false;
+    @Input() isAdmin: boolean = false;
 
     @Output() onToggleCityEditMode = new EventEmitter<{ cityId: number, mode: ItemMode }>();
     @Output() onToggleNewCityMode = new EventEmitter();

@@ -31,3 +31,12 @@
 .password-toggle:hover {
     color: #495057;
 }
+
+.switch-mode {
+    color: #3592d7;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}

@@ -14,7 +14,7 @@
             <tbody>
                 @for (stationItem of stations; track $index) {
                     <tr 
-                        [contextMenu]="isNewStationMode || isEditStationMode ? undefined : stationMenu"
+                        [contextMenu]="isNewStationMode || isEditStationMode || !isAdmin ? undefined : stationMenu"
                         [contextMenuValue]="stationItem"
                     >
                         <div class="row">
@@ -53,13 +53,15 @@
     </ng-template>
 
     <ng-template #button>
-        <button
-            class="btn btn-primary w-auto"
-            (click)="onToggleNewStationMode.emit()"
-            [disabled]="isNewStationMode || isEditStationMode"
-        >
-            Add Station
-        </button>
+        @if(isAdmin) {
+            <button
+                class="btn btn-primary w-auto"
+                (click)="onToggleNewStationMode.emit()"
+                [disabled]="isNewStationMode || isEditStationMode"
+            >
+                Add Station
+            </button>
+        }
     </ng-template>
 
 </app-table-container>

@@ -1,0 +1,49 @@
+:host ::ng-deep .toast-body {
+    padding: 0;
+}
+
+.fade-toast.toast {
+    transition: opacity 0.4s;
+    // width: 420px;
+    // font-size: 1em;
+    left: auto;
+    top: 50px;
+    font-weight: normal;
+    text-align: left;
+    padding: 25px 80px 25px 25px;
+    z-index: 1000;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+
+    &.info {
+        background-color: #0e90d2;
+    }
+
+    &.error {
+        background-color: #dd514c;
+    }
+
+    &.success {
+        background-color: #5eb95e;
+    }
+
+    &.warning {
+        background-color: #f37b1d;
+    }
+}
+
+.fade-toast.toast.hide {
+    opacity: 0;
+}
+
+.toast-container {
+    position: fixed;
+    top: 50px;
+    right: 0px;
+    z-index: 1000;
+}
+
+.toast-container > :not(:last-child) {
+    margin-bottom: 5px;
+}

@@ -17,7 +17,7 @@
             <tbody>
                 @for (tripItem of trips; track $index) {
                     <tr 
-                        [contextMenu]="isNewTripMode || isEditTripMode ? undefined : tripMenu"
+                        [contextMenu]="isNewTripMode || isEditTripMode || !isAdmin ? undefined : tripMenu"
                         [contextMenuValue]="tripItem"
                     >
                         <div class="row">
@@ -59,13 +59,15 @@
     </ng-template>
 
     <ng-template #button>
-        <button
-            class="btn btn-primary w-auto"
-            (click)="onToggleNewTripMode.emit()"
-            [disabled]="isNewTripMode || isEditTripMode"
-        >
-            Add Trip
-        </button>
+        @if(isAdmin) {
+            <button
+                class="btn btn-primary w-auto"
+                (click)="onToggleNewTripMode.emit()"
+                [disabled]="isNewTripMode || isEditTripMode"
+            >
+                Add Trip
+            </button>
+        }
     </ng-template>
 </app-table-container>
 

@@ -11,7 +11,7 @@
             <tbody>
                 @for (cityItem of cities; track $index) {
                     <tr
-                        [contextMenu]="isNewCityMode || isEditCityMode ? undefined : cityMenu"
+                        [contextMenu]="isNewCityMode || isEditCityMode || !isAdmin ? undefined : cityMenu"
                         [contextMenuValue]="cityItem"
                     >
                         <th scope="row">{{ $index + 1 }}</th>
@@ -45,13 +45,15 @@
     </ng-template>
 
     <ng-template #button>
-        <button
-            class="btn btn-primary w-auto"
-            (click)="onToggleNewCityMode.emit()"
-            [disabled]="isNewCityMode || isEditCityMode"
-        >
-            Add City
-        </button>
+        @if(isAdmin) {
+            <button
+                class="btn btn-primary w-auto"
+                (click)="onToggleNewCityMode.emit()"
+                [disabled]="isNewCityMode || isEditCityMode"
+            >
+                Add City
+            </button>
+        }
     </ng-template>
 </app-table-container>
 

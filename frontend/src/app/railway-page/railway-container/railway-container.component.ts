@@ -14,6 +14,7 @@ import { selectIsEditStationMode, selectIsNewStationMode, selectStations, select
 import { TripsComponent } from './trips/trips.component';
 import { selectIsEditTripMode, selectIsLoadingTrip, selectIsNewTripMode, selectTrips } from '../storage/entities/trip/selector';
 import { combineLatest, map } from 'rxjs';
+import { selectIsAdmin } from '../../login-page/storage/reducer';
 
 enum Tabs {
     Cities = 1,
@@ -28,6 +29,8 @@ enum Tabs {
     styleUrl: './railway-container.component.scss',
 })
 export class RailwayContainerComponent implements OnInit {
+    isAdmin$ = this.store.select(selectIsAdmin);
+
     cities$ = this.store.select(selectCities);
     citiesStorage$ = this.store.select(selectCitiesStorage)
     isNewCityMode$ = this.store.select(selectIsNewCityMode);

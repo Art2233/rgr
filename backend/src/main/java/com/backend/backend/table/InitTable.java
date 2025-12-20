@@ -1,6 +1,7 @@
 package com.backend.backend.table;
 
 import com.backend.backend.connection.DBConnection;
+import com.backend.backend.user.UserUtils;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,7 @@ import java.sql.*;
 
 @Component
 public class InitTable implements ApplicationRunner {
+    UserUtils uUtils = new UserUtils();
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -194,12 +196,12 @@ public class InitTable implements ApplicationRunner {
             );
 
             psUser.setString(1, "user");
-            psUser.setString(2, "user123");
+            psUser.setString(2, uUtils.encodePassword("user123"));
             psUser.setString(3, "USER");
             psUser.executeUpdate();
 
             psUser.setString(1, "admin");
-            psUser.setString(2, "admin123");
+            psUser.setString(2, uUtils.encodePassword("admin123"));
             psUser.setString(3, "ADMIN");
             psUser.executeUpdate();
 

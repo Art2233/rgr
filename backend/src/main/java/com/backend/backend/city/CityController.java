@@ -1,14 +1,19 @@
 package com.backend.backend.city;
 
+import jakarta.servlet.http.HttpSession;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/city")
-@CrossOrigin(origins = "http://localhost:4200") //for development
+@CrossOrigin(
+    origins = "http://localhost:4200",
+    allowCredentials = "true"
+) //for development
 public class CityController {
     private final CityService cityService;
     public CityController(CityService cityService) {
@@ -16,14 +21,22 @@ public class CityController {
     }
 
     @GetMapping("/get-list")
-    public List<City> getCities() throws SQLException {
+    public Object getCities(HttpSession session) throws SQLException {
+        if (session.getAttribute("userId") == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
         return cityService.getCities();
     }
 
     @PostMapping("/new")
-    public City createCity(@RequestBody Map<String, String> body) {
+    public Object createCity(@RequestBody Map<String, String> body, HttpSession session) {
         String name = body.get("name");
         try {
+            if("USER".equals(session.getAttribute("role"))) {
+                return ResponseEntity
+                        .status(HttpStatus.FORBIDDEN)
+                        .build();
+            }
             return cityService.createNewCity(name);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -31,8 +44,13 @@ public class CityController {
     }
 
     @PutMapping("/update/{id}")
-    public City updateCity(@PathVariable String id,  @RequestBody City city) {
+    public Object updateCity(@PathVariable String id,  @RequestBody City city, HttpSession session) {
         try {
+            if("USER".equals(session.getAttribute("role"))) {
+                return ResponseEntity
+                    .status(HttpStatus.FORBIDDEN)
+                    .build();
+            }
             return cityService.updateCity(Math.toIntExact(city.getId()), city.getName());
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -40,11 +58,17 @@ public class CityController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteCity(@PathVariable String id) {
+    public Object deleteCity(@PathVariable String id, HttpSession session) {
         try {
+            if("USER".equals(session.getAttribute("role"))) {
+                return ResponseEntity
+                        .status(HttpStatus.FORBIDDEN)
+                        .build();
+            }
             cityService.deleteCity(Integer.parseInt(id));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
 }

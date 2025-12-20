@@ -14,6 +14,7 @@
                         [isNewCityMode]="(isNewCityMode$ | async) ?? false"
                         [isEditCityMode]="(isEditCityMode$ | async) ?? false"
                         [isLoading]="(isLoadingCity$ | async) ?? false"
+                        [isAdmin]="(isAdmin$ | async) ?? false"
                     >
                     </app-cities>
                 </ng-template>
@@ -31,6 +32,7 @@
                         [isNewStationMode]="(isNewStationMode$ | async) ?? false"
                         [isEditStationMode]="(isEditStationMode$ | async) ?? false"
                         [isLoading]="(isStationsLoading$ | async) ?? false"
+                        [isAdmin]="(isAdmin$ | async) ?? false"
                     >
                     </app-stations>
                 </ng-template>
@@ -48,6 +50,7 @@
                         [stationsStorage]="(stationsStorage$ |  async) ?? []"
                         [isEditTripMode]="(isEditTripMode$ | async) ?? false"
                         [isNewTripMode]="(isNewTripMode$ | async) ?? false"
+                        [isAdmin]="(isAdmin$ | async) ?? false"
                     >
                     </app-trips>
                 </ng-template>

@@ -21,6 +21,7 @@ export class TripsComponent {
     @Input() isEditTripMode: boolean = false;
     @Input() stationsStorage: IStation[] = [];
     @Input() citiesStorage: ICity[] = [];
+    @Input() isAdmin: boolean = false;
 
     @Output() onToggleNewTripMode = new EventEmitter();
     @Output() onToggleEditTripMode = new EventEmitter<{ tripId: number, mode: ItemMode }>();

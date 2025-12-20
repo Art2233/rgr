@@ -19,6 +19,7 @@ export class StationsComponent {
     @Input() isNewStationMode: boolean = false;
     @Input() isEditStationMode: boolean = false
     @Input() isLoading: boolean = false;
+    @Input() isAdmin: boolean = false;
 
     @Output() onSaveStation = new EventEmitter<{ item: IStation }>();
     @Output() onToggleNewStationMode = new EventEmitter();

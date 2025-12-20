@@ -4,9 +4,10 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { apiBaseUrlInterceptor } from './http/api-base-url.interceptor';
+import { apiBaseUrlInterceptor, credentialsInterceptor } from './http/api-base-url.interceptor';
 import { EFFECTS } from './app.effects';
 import { reducers } from './reducer';
+import { errorInterceptor } from './http/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -15,6 +16,10 @@ export const appConfig: ApplicationConfig = {
         provideBrowserGlobalErrorListeners(),
         provideZoneChangeDetection({ eventCoalescing: true }),
         provideRouter(routes),
-        provideHttpClient(withInterceptors([apiBaseUrlInterceptor])),
+        provideHttpClient(withInterceptors([
+            apiBaseUrlInterceptor,
+            errorInterceptor,
+            credentialsInterceptor
+        ])),
     ]
 };

@@ -10,3 +10,15 @@ export const apiBaseUrlInterceptor: HttpInterceptorFn = (req, next) => {
     const apiReq = req.clone({ url: `${API_BASE_URL}/${req.url.replace(/^\/+/, '')}` });
     return next(apiReq);
 };
+
+export const credentialsInterceptor: HttpInterceptorFn = (req, next) => {
+    if (!req.url.includes('/api')) {
+        return next(req);
+    }
+
+    return next(
+        req.clone({
+            withCredentials: true,
+        }),
+    );
+};

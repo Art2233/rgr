@@ -1,0 +1,24 @@
+<div class="set-admin-modal">
+    <div class="modal-header">
+        <h5 class="modal-title">Set Admin</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="cancel()"></button>
+    </div>
+
+    <div class="modal-body">
+        <div class="user-list">
+            <div
+                *ngFor="let user of users"
+                class="user-item"
+                [class.admin]="user.role === UserRole.Admin"
+                [class.selected]="selectedUser === user"
+                (click)="selectUser(user)">
+                {{ user.userName }} ({{ user.role }})
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="confirm()" [disabled]="!selectedUser">Set Admin</button>
+    </div>
+</div>
