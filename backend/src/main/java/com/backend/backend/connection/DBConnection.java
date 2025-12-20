@@ -8,7 +8,7 @@ import java.util.Properties;
 public class DBConnection {
     private static final String url = System.getenv().getOrDefault(
         "SPRING_DATASOURCE_URL",
-        "jdbc:postgresql://localhost:5432/lab3"
+        "jdbc:postgresql://localhost:5432/rgr"
     );
     private static final String username = System.getenv().getOrDefault(
             "SPRING_DATASOURCE_USERNAME",

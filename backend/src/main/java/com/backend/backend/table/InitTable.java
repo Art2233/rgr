@@ -75,6 +75,14 @@ public class InitTable implements ApplicationRunner {
                 + "FOREIGN KEY (arrival_station_id) REFERENCES station(id) ON DELETE CASCADE, "
                 + "CONSTRAINT chk_trip_time CHECK (arrival_time > departure_time))";
 
+        String sqlUserTable = "CREATE TABLE IF NOT EXISTS users ("
+                + "id INTEGER GENERATED ALWAYS AS IDENTITY, "
+                + "username VARCHAR(50) UNIQUE NOT NULL, "
+                + "password VARCHAR(255) NOT NULL, "
+                + "role VARCHAR(20) NOT NULL, "
+                + "PRIMARY KEY (id), "
+                + "CONSTRAINT chk_role CHECK (role IN ('USER', 'ADMIN')))";
+
         try {
             conn = DBConnection.getConnection();
             if (conn == null) {
@@ -86,6 +94,7 @@ public class InitTable implements ApplicationRunner {
             stmt.execute(sqlCityTable);
             stmt.execute(sqlStationTable);
             stmt.execute(sqlTripTable);
+            stmt.execute(sqlUserTable);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
@@ -179,6 +188,20 @@ public class InitTable implements ApplicationRunner {
             psTrip.setInt(2, stationIds[0]);
             psTrip.setString(3, "IC-303");
             psTrip.executeUpdate();
+
+            PreparedStatement psUser = conn.prepareStatement(
+                "INSERT INTO users (username, password, role) VALUES (?, ?, ?)"
+            );
+
+            psUser.setString(1, "user");
+            psUser.setString(2, "user123");
+            psUser.setString(3, "USER");
+            psUser.executeUpdate();
+
+            psUser.setString(1, "admin");
+            psUser.setString(2, "admin123");
+            psUser.setString(3, "ADMIN");
+            psUser.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

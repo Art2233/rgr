@@ -6,7 +6,7 @@ services:
       db:
         condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/lab3
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/rgr
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
     ports:
@@ -16,11 +16,11 @@ services:
     image: postgres:16
     container_name: rgr-postgres
     environment:
-      POSTGRES_DB: lab3
+      POSTGRES_DB: rgr
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d lab3"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d rgr"]
       interval: 5s
       timeout: 5s
       retries: 10
